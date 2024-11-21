@@ -13,6 +13,14 @@
   # A flake in some absolute path
   # inputs.otherDir.url = "path:/home/alice/src/patchelf";
 
+  # Allow unfree
+  inputs.nixpkgs.config.alloUnfree = true;
+
+  # Home Manager
+  inputs.nixpkgs.home-manager = import ./home.nix {
+	inherit pkgs;
+  };
+
   # The nixpkgs entry in the flake registry.
   inputs.nixpkgsRegistry.url = "nixpkgs";
 
@@ -42,6 +50,7 @@
 
   # A tarball flake
   inputs.tarFlake.url = "https://github.com/NixOS/patchelf/archive/master.tar.gz";
+
 
   # A GitHub repository.
   inputs.import-cargo = {
@@ -152,6 +161,7 @@
       # modules = [{boot.isContainer=true;}] ;
 	modules = [
 		./configuration.nix
+		./home.nix
 	];
     };
 

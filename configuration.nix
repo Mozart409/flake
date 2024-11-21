@@ -126,6 +126,8 @@
 	wget
 	curl
 	unzip
+	gh
+	tree
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
