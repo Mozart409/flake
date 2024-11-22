@@ -17,6 +17,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
 
@@ -110,7 +111,7 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, ... }: {
+  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, nixvim, ... }: {
     # home-manager
     # inherit home-manager;
     # inherit (home-manager) packages;
@@ -123,6 +124,14 @@
         ];
         # Other configuration files can be included here
     };
+
+    # nixvim
+    nixvim' = nixvim.legacyPackages.${system};
+        nvim = nixvim'.makeNixvimWithModule {
+          inherit pkgs;
+          module = ./modules/nixvim;
+    };
+
     
     # Utilized by `nix flake check`
     # checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;

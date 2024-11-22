@@ -38,7 +38,7 @@
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
     firefox
-
+    ungoogled-chromium
     freshfetch
     nnn # terminal file manager
 
