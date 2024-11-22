@@ -37,6 +37,7 @@
   home.packages = with pkgs; [
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
+    firefox
 
     freshfetch
     nnn # terminal file manager
@@ -143,6 +144,26 @@
 	interactiveShellInit = ''set fish_greeting # Disable greeting'';
 
   };
+
+  dconf.settings = {
+      "org/gnome/desktop/background" = {
+        picture-uri-dark = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.src}";
+      };
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Adwaita-dark";
+        package = pkgs.gnome-themes-extra;
+      };
+    };
+
+    # Wayland, X, etc. support for session vars
+#    systemd.user.sessionVariables = config.home-manager.users.justinas.home.sessionVariables;
 
 
   # This value determines the home Manager release that your

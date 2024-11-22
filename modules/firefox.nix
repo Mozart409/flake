@@ -3,7 +3,10 @@
   lib,
   ...
 }:{ 
-programs.browserpass.enable = true;
+  home-manager.backupFileExtension
+  
+  programs.browserpass.enable = true;
+  
   programs.firefox = {
     enable = true;
     profiles.amadeus = {

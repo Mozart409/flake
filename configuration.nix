@@ -13,7 +13,8 @@
   # nix
 
   nix = {
-	autoOptimiseStore = true;
+	# autoOptimiseStore = true;
+	settings.auto-optimise-store = true;
 	extraOptions = ''
       		experimental-features = nix-command flakes
       		warn-dirty = false
@@ -111,8 +112,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "amadeus";
 
-  # Install firefox.
-  programs.firefox.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

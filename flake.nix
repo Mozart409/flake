@@ -111,14 +111,12 @@
   # inputs.c-hello.url = "path:../c-hello";
 
   outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, ... }: {
-
-    
-
     # home-manager
     # inherit home-manager;
     # inherit (home-manager) packages;
-
+    
     homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
+
         modules = [
           ./home.nix
 	  ./modules/default.nix
@@ -181,6 +179,7 @@
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
+	    home-manager.backupFileExtension = "hm-backup";
 
             home-manager.users.amadeus= import ./home.nix;
 
