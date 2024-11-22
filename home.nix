@@ -1,5 +1,5 @@
 
-{ config, pkgs, inputs, home  ... }:
+{ config, pkgs, inputs, home, ... }:
 
 {
   # TODO please change the username & home directory to your own
