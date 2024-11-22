@@ -15,7 +15,7 @@
 
   # Home Manager
   # inputs.nixpkgs.home-manager = import ./home.nix;
-  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   # The nixpkgs entry in the flake registry.
@@ -168,7 +168,17 @@
       # modules = [{boot.isContainer=true;}] ;
 	modules = [
 		./configuration.nix
-		./home.nix
+
+		home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.amadeus= import ./home.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          }
+
 	];
     };
 
