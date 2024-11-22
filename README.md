@@ -2,11 +2,12 @@
 
 ## Useful
 
+List all generations
 ```bash
 sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 ```
 
-> Wipe 
+> Wipe generations older than 3 days
 ```bash
-sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 1d
+sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 3d
 ```
