@@ -1,5 +1,5 @@
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, home  ... }:
 
 {
   # TODO please change the username & home directory to your own
@@ -27,12 +27,18 @@
     "Xft.dpi" = 172;
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ ];
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
 
-    neofetch
+    freshfetch
     nnn # terminal file manager
 
     neovim
@@ -102,6 +108,14 @@
     enable = true;
     userName = "Amadeus Mader";
     userEmail = "amadeus@mozart409.com";
+    aliases = {
+	a = "add";
+	c = "commit -m";
+	f = "fetch";
+	ps = "push";
+	pl = "pull";
+	st = "status";		
+     };
   };
 
   # starship - an customizable prompt for any shell
@@ -153,8 +167,6 @@
   # You can update home Manager without changing this value. See
   # the home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.05";
+  # home.stateVersion = "24.05";
 
-  # Let home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

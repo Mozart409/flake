@@ -13,13 +13,10 @@
   # A flake in some absolute path
   # inputs.otherDir.url = "path:/home/alice/src/patchelf";
 
-  # Allow unfree
-  inputs.nixpkgs.config.alloUnfree = true;
-
   # Home Manager
-  inputs.nixpkgs.home-manager = import ./home.nix {
-	inherit pkgs;
-  };
+  # inputs.nixpkgs.home-manager = import ./home.nix;
+  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   # The nixpkgs entry in the flake registry.
   inputs.nixpkgsRegistry.url = "nixpkgs";
@@ -87,9 +84,6 @@
   inputs.nixpkgs.url = "nixpkgs";
   inputs.nixpkgs.follows = "nixops/nixpkgs";
 
-  # Home Manager
-  inputs.home-manager.url = "github:nix-community/home-manager/release-24.05";
-  inputs.home-manager.follows = "nixops/nixpkgs";
   # The value of the follows attribute is a sequence of input names denoting the path
   # of inputs to be followed from the root flake. Overrides and follows can be combined, e.g.
   inputs.nixops.url = "nixops";
@@ -109,16 +103,29 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{ self, c-hello, rust-web-server, nixpkgs, nix-bundle, ... }: {
+  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, ... }: {
 
+    
+
+    # home-manager
+    # inherit home-manager;
+    # inherit (home-manager) packages;
+
+    homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
+        modules = [
+          ./home.nix
+        ];
+        # Other configuration files can be included here
+    };
+    
     # Utilized by `nix flake check`
-    checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;
+    # checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;
 
     # Utilized by `nix build .`
-    defaultPackage.x86_64-linux = c-hello.defaultPackage.x86_64-linux;
+    # defaultPackage.x86_64-linux = c-hello.defaultPackage.x86_64-linux;
 
     # Utilized by `nix build`
-    packages.x86_64-linux.hello = c-hello.packages.x86_64-linux.hello;
+    # packages.x86_64-linux.hello = c-hello.packages.x86_64-linux.hello;
 
     # Utilized by `nix run .#<name>`
     apps.x86_64-linux.hello = {
