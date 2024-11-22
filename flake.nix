@@ -13,40 +13,47 @@
   # A flake in some absolute path
   # inputs.otherDir.url = "path:/home/alice/src/patchelf";
 
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+
   # Home Manager
   # inputs.nixpkgs.home-manager = import ./home.nix;
-  inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  # inputs.home-manager.url = "github:nix-community/home-manager";
+  # inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   # The nixpkgs entry in the flake registry.
-  inputs.nixpkgsRegistry.url = "nixpkgs";
+  # inputs.nixpkgsRegistry.url = "nixpkgs";
 
   # The nixpkgs entry in the flake registry, overriding it to use a specific Git revision.
-  inputs.nixpkgsRegistryOverride.url = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+  # inputs.nixpkgsRegistryOverride.url = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
 
   # The master branch of the NixOS/nixpkgs repository on GitHub.
-  inputs.nixpkgsGitHub.url = "github:NixOS/nixpkgs";
+  # inputs.nixpkgsGitHub.url = "github:NixOS/nixpkgs";
 
   # The nixos-20.09 branch of the NixOS/nixpkgs repository on GitHub.
-  inputs.nixpkgsGitHubBranch.url = "github:NixOS/nixpkgs/nixos-20.09";
+  # inputs.nixpkgsGitHubBranch.url = "github:NixOS/nixpkgs/nixos-20.09";
 
   # A specific revision of the NixOS/nixpkgs repository on GitHub.
-  inputs.nixpkgsGitHubRevision.url = "github:NixOS/nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+  # inputs.nixpkgsGitHubRevision.url = "github:NixOS/nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
 
   # A flake in a subdirectory of a GitHub repository.
-  inputs.nixpkgsGitHubDir.url = "github:edolstra/nix-warez?dir=blender";
+  # inputs.nixpkgsGitHubDir.url = "github:edolstra/nix-warez?dir=blender";
 
   # A git repository.
-  inputs.gitRepo.url = "git+https://github.com/NixOS/patchelf";
+  # inputs.gitRepo.url = "git+https://github.com/NixOS/patchelf";
 
   # A specific branch of a Git repository.
-  inputs.gitRepoBranch.url = "git+https://github.com/NixOS/patchelf?ref=master";
+  # inputs.gitRepoBranch.url = "git+https://github.com/NixOS/patchelf?ref=master";
 
   # A specific revision of a Git repository.
-  inputs.gitRepoRev.url = "git+https://github.com/NixOS/patchelf?ref=master&rev=f34751b88bd07d7f44f5cd3200fb4122bf916c7e";
+  # inputs.gitRepoRev.url = "git+https://github.com/NixOS/patchelf?ref=master&rev=f34751b88bd07d7f44f5cd3200fb4122bf916c7e";
 
   # A tarball flake
-  inputs.tarFlake.url = "https://github.com/NixOS/patchelf/archive/master.tar.gz";
+  # inputs.tarFlake.url = "https://github.com/NixOS/patchelf/archive/master.tar.gz";
 
 
   # A GitHub repository.
@@ -81,8 +88,8 @@
   # It is also possible to "inherit" an input from another input. This is useful to minimize
   # flake dependencies. For example, the following sets the nixpkgs input of the top-level flake
   # to be equal to the nixpkgs input of the nixops input of the top-level flake:
-  inputs.nixpkgs.url = "nixpkgs";
-  inputs.nixpkgs.follows = "nixops/nixpkgs";
+  # inputs.nixpkgs.url = "nixpkgs";
+  	# inputs.nixpkgs.follows = "nixops/nixpkgs";
 
   # The value of the follows attribute is a sequence of input names denoting the path
   # of inputs to be followed from the root flake. Overrides and follows can be combined, e.g.

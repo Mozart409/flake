@@ -41,6 +41,8 @@
     nnn # terminal file manager
 
     neovim
+    tmux
+    fish
     # archives
     zip
     xz
@@ -74,15 +76,14 @@
     gawk
     zstd
     gnupg
-
+    gh
+    lazygit
     # nix related
     #
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
 
-    # productivity
-    hugo # static site generator
     glow # markdown previewer in terminal
 
     btop  # replacement of htop/nmon
@@ -117,18 +118,6 @@
      };
   };
 
-  # starship - an customizable prompt for any shell
-  programs.starship = {
-    enable = true;
-    # custom settings
-    settings = {
-      add_newline = false;
-      aws.disabled = false;
-      gcloud.disabled = false;
-      line_break.disabled = true;
-    };
-  };
-
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
     enable = true;
@@ -142,6 +131,24 @@
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
     };
+  };
+
+  # backup bash shell
+  programs.bash = {
+  interactiveShellInit = ''
+    if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+    then
+      shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+      exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+    fi
+  '';
+};
+
+  # fish shell
+  programs.fish = {
+	enable = true;
+	interactiveShellInit = ''set fish_greeting # Disable greeting'';
+
   };
 
 
