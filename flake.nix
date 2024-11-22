@@ -111,7 +111,7 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, nixvim, ... }: {
+  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, ... }: {
     # home-manager
     # inherit home-manager;
     # inherit (home-manager) packages;
@@ -125,14 +125,6 @@
         # Other configuration files can be included here
     };
 
-    # nixvim
-    nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvimWithModule {
-          inherit pkgs;
-          module = ./modules/nixvim;
-    };
-
-    
     # Utilized by `nix flake check`
     # checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;
 
@@ -183,7 +175,6 @@
       # modules = [{boot.isContainer=true;}] ;
 	modules = [
 		./configuration.nix
-
 		home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;

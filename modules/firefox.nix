@@ -3,8 +3,6 @@
   lib,
   ...
 }:{ 
-  home-manager.backupFileExtension
-  
   programs.browserpass.enable = true;
   
   programs.firefox = {
