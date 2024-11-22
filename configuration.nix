@@ -13,7 +13,11 @@
   # nix
 
   nix = {
-	# settings.auto-optimize-store = true;
+	autoOptimiseStore = true;
+	extraOptions = ''
+      		experimental-features = nix-command flakes
+      		warn-dirty = false
+      	'';
 	gc = {
 		automatic = true;
 		dates = "weekly";
