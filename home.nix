@@ -2,6 +2,7 @@
 { config, pkgs,  ... }:
 
 {
+
   home.username = "amadeus";
   home.homeDirectory = "/home/amadeus";
 
@@ -108,6 +109,9 @@
     enable = true;
     userName = "Amadeus Mader";
     userEmail = "amadeus@mozart409.com";
+    extraConfig = {
+	 init.defaultBranch = "main";
+    };
     aliases = {
 	a = "add";
 	c = "commit -m";

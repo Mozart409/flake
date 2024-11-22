@@ -121,6 +121,7 @@
     homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
         modules = [
           ./home.nix
+	  ./modules/default.nix
         ];
         # Other configuration files can be included here
     };
