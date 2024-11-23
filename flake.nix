@@ -116,7 +116,7 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, plasma-manager, ... }: {
+  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, plasma-manager, nixvim, ... }: {
     # home-manager
     # inherit home-manager;
     # inherit (home-manager) packages;
@@ -195,6 +195,9 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
 
+	    # Pass nixvim to home.nix
+      	    home-manager.extraSpecialArgs = { inherit nixvim; };
+      	    # home-manager.specialArgs = { inherit nixvim; };
           }
 
 	];

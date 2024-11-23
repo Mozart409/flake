@@ -1,12 +1,15 @@
 
-{ config, pkgs,  ... }:
+{ config, pkgs, nixvim,  ... }:
 
 {
 
   home.username = "amadeus";
   home.homeDirectory = "/home/amadeus";
 
-
+  imports = [
+	# nixvim.modules.default
+    	./modules/nixvim/default.nix
+  ];
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
