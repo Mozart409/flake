@@ -125,7 +125,6 @@
 
         modules = [
           	./home.nix
-	  	./modules/default.nix
 		plasma-manager.homeManagerModules.plasma-manager
         ];
         # Other configuration files can be included here

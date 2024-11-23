@@ -45,9 +45,7 @@
     freshfetch
     nnn # terminal file manager
 
-    tailscale
-
-    kdePackages.kleopatra
+    libsForQt5.kleopatra
 
     # kde themes
     qogir-kde
@@ -177,6 +175,7 @@
       # wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
     };
   };
+
 
 
   # This value determines the home Manager release that your
