@@ -6,6 +6,26 @@
   home.username = "amadeus";
   home.homeDirectory = "/home/amadeus";
 
+  # Plasma Settings
+
+   imports = [ <plasma-manager/modules> ];
+
+  programs.plasma = {
+    enable = true;
+
+    #
+    # Some high-level settings:
+    #
+    workspace = {
+      clickItemTo = "select";
+      # lookAndFeel = "org.kde.breezedark.desktop";
+      lookAndFeel = "com.github.vinceliuice.Qogir-ubuntu-dark";
+      cursor.theme = "Sweet-cursor";
+      iconTheme = "Breeze-Dark";
+      # wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
+    };
+  };
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -42,6 +62,13 @@
     freshfetch
     nnn # terminal file manager
 
+    # kde themes
+    qogir-kde
+    # Cursor
+    sweet-nova
+    # Window style
+    arc-kde-theme
+
     neovim
     tmux
     fish
@@ -50,6 +77,8 @@
     xz
     unzip
     p7zip
+
+    steam
 
     # utils
     ripgrep # recursively searches directories for a regex pattern

@@ -18,6 +18,11 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
 
@@ -111,7 +116,7 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, ... }: {
+  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, plasma-manager, ... }: {
     # home-manager
     # inherit home-manager;
     # inherit (home-manager) packages;
@@ -119,8 +124,9 @@
     homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
 
         modules = [
-          ./home.nix
-	  ./modules/default.nix
+          	./home.nix
+	  	./modules/default.nix
+		inputs.plasma-manager.homeManagerModules.plasma-manager
         ];
         # Other configuration files can be included here
     };
