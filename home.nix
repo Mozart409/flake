@@ -42,6 +42,7 @@
     # feel free to add your own or remove some of them
     firefox
     ungoogled-chromium
+    tor-browser
     freshfetch
     nnn # terminal file manager
 
@@ -172,7 +173,7 @@
     workspace = {
       clickItemTo = "select";
       # lookAndFeel = "org.kde.breezedark.desktop";
-      lookAndFeel = "com.github.vinceliuice.Qogir-ubuntu-dark";
+      lookAndFeel = "com.github.vinceliuice.Qogir-dark";
       cursor.theme = "Sweet-cursor";
       iconTheme = "Breeze-Dark";
       # wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
