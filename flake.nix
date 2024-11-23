@@ -172,7 +172,7 @@
     nixosModule = { config, ... }: { options = {}; config = {}; };
 
     # Same idea as nixosModule but a list or attrset of them.
-    nixosModules = { exampleModule = self.nixosModule; };
+    nixosModules = { nixvim = self.nixosModule; };
 
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
@@ -187,11 +187,14 @@
             home-manager.useUserPackages = true;
 	    home-manager.backupFileExtension = "hm-backup";	
 
-	    home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+	    home-manager.sharedModules = [ 
+	    	plasma-manager.homeManagerModules.plasma-manager
+		];
 
             home-manager.users.amadeus= import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+
           }
 
 	];
