@@ -13,7 +13,7 @@
 		./which-key.nix
 		./ultimate-autopair.nix
 		./keys.nix
-#		./sets.nix
+		./sets.nix
 		./options.nix
 	];
 

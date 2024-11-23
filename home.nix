@@ -7,8 +7,7 @@
   home.homeDirectory = "/home/amadeus";
 
   imports = [
-	# nixvim.modules.default
-    	./modules/nixvim/default.nix
+    	# ./modules/nixvim/default.nix
   ];
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -45,6 +44,10 @@
     ungoogled-chromium
     freshfetch
     nnn # terminal file manager
+
+    tailscale
+
+    kdePackages.kleopatra
 
     # kde themes
     qogir-kde
@@ -175,9 +178,7 @@
     };
   };
 
-  programs.tailscale = {
-	enable = true;
-  };
+
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new home Manager release introduces backwards
