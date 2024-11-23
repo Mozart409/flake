@@ -126,7 +126,7 @@
         modules = [
           	./home.nix
 	  	./modules/default.nix
-		inputs.plasma-manager.homeManagerModules.plasma-manager
+		plasma-manager.homeManagerModules.plasma-manager
         ];
         # Other configuration files can be included here
     };
@@ -181,11 +181,13 @@
       # modules = [{boot.isContainer=true;}] ;
 	modules = [
 		./configuration.nix
-		home-manager.nixosModules.home-manager
+	home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-	    home-manager.backupFileExtension = "hm-backup";
+	    home-manager.backupFileExtension = "hm-backup";	
+
+	    home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
             home-manager.users.amadeus= import ./home.nix;
 

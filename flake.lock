@@ -769,6 +769,29 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731193165,
+        "narHash": "sha256-pGF8L5g9QpkQtJP9JmNIRNZfcyhJHf7uT+d8tqI1h6Y=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "f33173b9d22e554a6f869626bc01808d35995257",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -806,6 +829,7 @@
         "nixpkgs": "nixpkgs_6",
         "nixpkgsIndirect": "nixpkgsIndirect",
         "nixvim": "nixvim",
+        "plasma-manager": "plasma-manager",
         "rust-web-server": "rust-web-server"
       }
     },
