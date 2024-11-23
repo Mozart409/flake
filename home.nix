@@ -45,6 +45,9 @@
     freshfetch
     nnn # terminal file manager
 
+    gnupg
+    pinentry-gnome3
+    gpg-tui
     libsForQt5.kleopatra
 
     # kde themes
