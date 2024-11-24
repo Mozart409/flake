@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eo pipefail
 
+clear 
 echo ""
 echo "Switching to new generation"
 echo ""

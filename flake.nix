@@ -25,7 +25,6 @@
     };
   };
 
-
   # Home Manager
   # inputs.nixpkgs.home-manager = import ./home.nix;
   # inputs.home-manager.url = "github:nix-community/home-manager";
@@ -61,7 +60,6 @@
   # A tarball flake
   # inputs.tarFlake.url = "https://github.com/NixOS/patchelf/archive/master.tar.gz";
 
-
   # A GitHub repository.
   inputs.import-cargo = {
     type = "github";
@@ -95,7 +93,7 @@
   # flake dependencies. For example, the following sets the nixpkgs input of the top-level flake
   # to be equal to the nixpkgs input of the nixops input of the top-level flake:
   # inputs.nixpkgs.url = "nixpkgs";
-  	# inputs.nixpkgs.follows = "nixops/nixpkgs";
+  # inputs.nixpkgs.follows = "nixops/nixpkgs";
 
   # The value of the follows attribute is a sequence of input names denoting the path
   # of inputs to be followed from the root flake. Overrides and follows can be combined, e.g.
@@ -116,108 +114,134 @@
   # Work-in-progress: refer to parent/sibling flakes in the same repository
   # inputs.c-hello.url = "path:../c-hello";
 
-  outputs = all@{  self, c-hello, rust-web-server, nixpkgs, nix-bundle, home-manager, plasma-manager, nixvim, ... }: {
-    # home-manager
-    # inherit home-manager;
-    # inherit (home-manager) packages;
-    
-    homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
+  outputs =
+    all@{
+      self,
+      c-hello,
+      rust-web-server,
+      nixpkgs,
+      nix-bundle,
+      home-manager,
+      plasma-manager,
+      nixvim,
+      ...
+    }:
+    {
+      # home-manager
+      # inherit home-manager;
+      # inherit (home-manager) packages;
+
+      homeConfigurations.amadeus = home-manager.lib.homeManagerConfiguration {
 
         modules = [
-          	./home.nix
-		plasma-manager.homeManagerModules.plasma-manager
+          ./home.nix
+          plasma-manager.homeManagerModules.plasma-manager
+          nixvim.homeManagerModules.nixvim
         ];
         # Other configuration files can be included here
-    };
+      };
 
-    # Utilized by `nix flake check`
-    # checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;
+      # Utilized by `nix flake check`
+      # checks.x86_64-linux.test = c-hello.checks.x86_64-linux.test;
 
-    # Utilized by `nix build .`
-    # defaultPackage.x86_64-linux = c-hello.defaultPackage.x86_64-linux;
+      # Utilized by `nix build .`
+      # defaultPackage.x86_64-linux = c-hello.defaultPackage.x86_64-linux;
 
-    # Utilized by `nix build`
-    # packages.x86_64-linux.hello = c-hello.packages.x86_64-linux.hello;
+      # Utilized by `nix build`
+      # packages.x86_64-linux.hello = c-hello.packages.x86_64-linux.hello;
 
-    # Utilized by `nix run .#<name>`
-    apps.x86_64-linux.hello = {
-      type = "app";
-      program = c-hello.packages.x86_64-linux.hello;
-    };
+      # Utilized by `nix run .#<name>`
+      apps.x86_64-linux.hello = {
+        type = "app";
+        program = c-hello.packages.x86_64-linux.hello;
+      };
 
-    # Utilized by `nix bundle -- .#<name>` (should be a .drv input, not program path?)
-    bundlers.x86_64-linux.example = nix-bundle.bundlers.x86_64-linux.toArx;
+      # Utilized by `nix bundle -- .#<name>` (should be a .drv input, not program path?)
+      bundlers.x86_64-linux.example = nix-bundle.bundlers.x86_64-linux.toArx;
 
-    # Utilized by `nix bundle -- .#<name>`
-    defaultBundler.x86_64-linux = self.bundlers.x86_64-linux.example;
+      # Utilized by `nix bundle -- .#<name>`
+      defaultBundler.x86_64-linux = self.bundlers.x86_64-linux.example;
 
-    # Utilized by `nix run . -- <args?>`
-    defaultApp.x86_64-linux = self.apps.x86_64-linux.hello;
+      # Utilized by `nix run . -- <args?>`
+      defaultApp.x86_64-linux = self.apps.x86_64-linux.hello;
 
-    # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
-    legacyPackages.x86_64-linux.hello = c-hello.defaultPackage.x86_64-linux;
+      # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
+      legacyPackages.x86_64-linux.hello = c-hello.defaultPackage.x86_64-linux;
 
-    # Default overlay, for use in dependent flakes
-    overlay = final: prev: {
-	power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (oldAttrs: {
-        	doCheck = false;
-          });
-	 };
+      # Default overlay, for use in dependent flakes
+      overlay = final: prev: {
+        power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (oldAttrs: {
+          doCheck = false;
+        });
+      };
 
-    # # Same idea as overlay but a list or attrset of them.
-    overlays = { exampleOverlay = self.overlay; };
+      # # Same idea as overlay but a list or attrset of them.
+      overlays = {
+        exampleOverlay = self.overlay;
+      };
 
-    # Default module, for use in dependent flakes. Deprecated, use nixosModules.default instead.
-    nixosModule = { config, ... }: { options = {}; config = {}; };
+      # Default module, for use in dependent flakes. Deprecated, use nixosModules.default instead.
+      nixosModule =
+        { config, ... }:
+        {
+          options = { };
+          config = { };
+        };
 
-    # Same idea as nixosModule but a list or attrset of them.
-    nixosModules = { nixvim = self.nixosModule; };
+      # Same idea as nixosModule but a list or attrset of them.
+      /*
+        nixosModules = {
+          nixvim = self.nixosModule;
+        };
+      */
 
-    # Used with `nixos-rebuild --flake .#<hostname>`
-    # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations.amadeus= nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      # modules = [{boot.isContainer=true;}] ;
-	modules = [
-		./configuration.nix
-	home-manager.nixosModules.home-manager
+      # Used with `nixos-rebuild --flake .#<hostname>`
+      # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
+      nixosConfigurations.amadeus = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        # modules = [{boot.isContainer=true;}] ;
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-	    home-manager.backupFileExtension = "hm-backup";	
+            home-manager.backupFileExtension = "hm-backup";
 
-	    home-manager.sharedModules = [ 
-	    	plasma-manager.homeManagerModules.plasma-manager
-		];
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+            ];
 
-            home-manager.users.amadeus= import ./home.nix;
+            home-manager.users.amadeus = import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
 
-	    # Pass nixvim to home.nix
-      	    home-manager.extraSpecialArgs = { inherit nixvim; };
-      	    # home-manager.specialArgs = { inherit nixvim; };
+            # Pass nixvim to home.nix
+            home-manager.extraSpecialArgs = {
+              # inherit nixvim;
+            };
+            # home-manager.specialArgs = { inherit nixvim; };
           }
 
-	];
+        ];
+      };
+
+      # Utilized by `nix develop`
+      devShell.x86_64-linux = rust-web-server.devShell.x86_64-linux;
+
+      # Utilized by `nix develop .#<name>`
+      devShells.x86_64-linux.example = self.devShell.x86_64-linux;
+
+      # Utilized by Hydra build jobs
+      hydraJobs.example.x86_64-linux = self.defaultPackage.x86_64-linux;
+
+      # Utilized by `nix flake init -t <flake>`
+      defaultTemplate = {
+        path = c-hello;
+        description = "template description";
+      };
+
+      # Utilized by `nix flake init -t <flake>#<name>`
+      templates.example = self.defaultTemplate;
     };
-
-    # Utilized by `nix develop`
-    devShell.x86_64-linux = rust-web-server.devShell.x86_64-linux;
-
-    # Utilized by `nix develop .#<name>`
-    devShells.x86_64-linux.example = self.devShell.x86_64-linux;
-
-    # Utilized by Hydra build jobs
-    hydraJobs.example.x86_64-linux = self.defaultPackage.x86_64-linux;
-
-    # Utilized by `nix flake init -t <flake>`
-    defaultTemplate = {
-      path = c-hello;
-      description = "template description";
-    };
-
-    # Utilized by `nix flake init -t <flake>#<name>`
-    templates.example = self.defaultTemplate;
-  };
 }

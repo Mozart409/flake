@@ -5,25 +5,25 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      	./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # nix
 
   nix = {
-	# autoOptimiseStore = true;
-	settings.auto-optimise-store = true;
-	extraOptions = ''
-      		experimental-features = nix-command flakes
-      		warn-dirty = false
-      	'';
-	gc = {
-		automatic = true;
-		dates = "weekly";
-		options = "--delete-older-than 7d";
-	};
+    # autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      warn-dirty = false
+    '';
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # Bootloader.
@@ -101,10 +101,13 @@
   users.users.amadeus = {
     isNormalUser = true;
     description = "amadeus";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-      	kdePackages.kate
-#	thunderbird
+      kdePackages.kate
+      #	thunderbird
     ];
   };
 
@@ -112,23 +115,15 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "amadeus";
 
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	brave
-	vim
-	git
-	wget
-	curl
-	unzip
-	gh
-	tree
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    brave
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

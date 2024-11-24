@@ -1,5 +1,9 @@
-
-{ config, pkgs, nixvim,  ... }:
+{
+  config,
+  pkgs,
+  nixvim,
+  ...
+}:
 
 {
 
@@ -7,7 +11,8 @@
   home.homeDirectory = "/home/amadeus";
 
   imports = [
-    	# ./modules/nixvim/default.nix
+    # ./modules/nixvim/default.nix
+    #     ./modules/nixvim
   ];
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -46,6 +51,13 @@
     freshfetch
     nnn # terminal file manager
 
+    vim
+    git
+    wget
+    curl
+    unzip
+    gh
+    tree
     gnupg
     pinentry-gnome3
     gpg-tui
@@ -79,12 +91,12 @@
     # networking tools
     mtr # A network diagnostic tool
     iperf3
-    dnsutils  # `dig` + `nslookup`
+    dnsutils # `dig` + `nslookup`
     ldns # replacement of `dig`, it provide the command `drill`
     aria2 # A lightweight multi-protocol & multi-source command-line download utility
     socat # replacement of openbsd-netcat
     nmap # A utility for network discovery and security auditing
-    ipcalc  # it is a calculator for the IPv4/v6 addresses
+    ipcalc # it is a calculator for the IPv4/v6 addresses
 
     # misc
     cowsay
@@ -106,7 +118,7 @@
 
     glow # markdown previewer in terminal
 
-    btop  # replacement of htop/nmon
+    btop # replacement of htop/nmon
     iotop # io monitoring
     iftop # network monitoring
 
@@ -129,16 +141,16 @@
     userName = "Amadeus Mader";
     userEmail = "amadeus@mozart409.com";
     extraConfig = {
-	 init.defaultBranch = "main";
+      init.defaultBranch = "main";
     };
     aliases = {
-	a = "add";
-	c = "commit -m";
-	f = "fetch";
-	ps = "push";
-	pl = "pull";
-	st = "status";		
-     };
+      a = "add";
+      c = "commit -m";
+      f = "fetch";
+      ps = "push";
+      pl = "pull";
+      st = "status";
+    };
   };
 
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
@@ -158,11 +170,10 @@
 
   # fish shell
   programs.fish = {
-	enable = true;
-	interactiveShellInit = ''set fish_greeting # Disable greeting'';
+    enable = true;
+    interactiveShellInit = ''set fish_greeting # Disable greeting'';
 
   };
-
 
   programs.plasma = {
     enable = true;
@@ -179,8 +190,6 @@
       # wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
     };
   };
-
-
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
